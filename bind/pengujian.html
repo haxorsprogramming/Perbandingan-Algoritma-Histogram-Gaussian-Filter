@@ -1,0 +1,128 @@
+{% load static %}
+{% csrf_token %}
+<div class="container" id="divPengujian">
+  <div class="row">
+    <div class="card-body">
+      <div class="summary">
+        <div class="summary-info">
+          <h4>[[ titleForm ]]</h4>
+          <img src="{% static "/dasbor/img/set_img.png" %}" style="width:50%;" id="txtPreviewUpload">
+          
+          <form enctype="multipart/form-data" id="frmUpload">
+            <div class="text-muted" style="margin-top:20px;">Silahkan input citra</div>
+            <input type="file" id="txtFotoInput" onchange="getImg()">
+            <div style="margin-top:20px;">
+              <a href="javascript:void(0)" id="btnMulaiAnalisa" @click="mulaiAnalisaAwalAtc()" class="btn btn-primary btn-lg">Mulai analisa foto</a>
+            </div>
+            <div id="divStatusUji" style="display:none;margin-top: 20px;font-size: 20px;">
+                <img src="{% static "/dasbor/loading.svg" %}"><br/>
+              Sedang menganalisa foto
+            </div>
+          </form>
+
+          <div id="divLoading" style="text-align:center;display:none;">
+            <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_jryyrscd.json" mode="bounce"
+              background="transparent" speed="1" style="width: 300px; height: 300px;margin:auto;" loop autoplay>
+            </lottie-player>
+            <h5 id="txtCapLoading"></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="divHasilAnalisaFotoAwal" style="margin-top:20px;display:none;text-align: center;">
+  <hr />
+  <h6>Hasil Analisa Foto Awal</h6>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+      <table class="table">
+        <tr>
+          <th>Histogram Grayscale</th><th>Histogram RGB</th>
+        </tr>
+        <tr>
+          <td>
+            <img id="imgHisGrayscale" style="width: 400px;">
+          </td>
+          <td>
+            <img id="imgHisRgb" style="width: 400px;">
+          </td>
+        </tr>
+      </table>
+      <div id="divStatusUji2" style="display:none;margin-top: 20px;font-size: 20px;">
+          <img src="{% static "/dasbor/loading.svg" %}"><br/>
+        Sedang memproses perbaikan citra
+      </div>
+      <a href="javascript:void(0)" class="btn btn-primary btn-lg" onclick="mulaiAnalisaPerbaikan()">Mulai proses citra untuk perbaikan</a>
+    </div>
+  </div>
+  <hr />
+  </div>
+
+  <div id="divHasilPerbaikan" style="margin-top:20px;display:none;text-align: center;">
+    <h6>Hasil Analisa Perbaikan Citra</h6>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <h5>Perbaikan dengan metode 1 (Histogram)</h5>
+        <table class="table table-responsive">
+          <tr>
+            <th>Citra Awal</th><th>Histogram Awal</th><th>Citra Perbaikan</th><th>Histogram Citra Perbaikan</th>
+          </tr>
+          <tr>
+            <td>
+              <img id="imgPCitraAwal" style="width: 400px;">
+            </td>
+            <td>
+              <img id="imgPHisAwal" style="width: 400px;">
+            </td>
+            <td>
+              <img id="imgPCitraPerbaikan" style="width: 400px;">
+            </td>
+            <td>
+              <img id="imgPHisPerbaikan" style="width: 400px;">
+            </td>
+          </tr>
+        </table>
+        
+      </div>
+
+      <hr/>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="margin-top: 30px;">
+        <h5>Perbaikan dengan metode 2 (Gaussian Filter)</h5>
+        <table class="table table-responsive">
+          <tr>
+            <th>Citra Awal</th><th>Histogram Awal</th><th>Citra Perbaikan</th><th>Histogram Citra Perbaikan</th>
+          </tr>
+          <tr>
+            <td>
+              <img id="imgPCitraAwal2" style="width: 400px;">
+            </td>
+            <td>
+              <img id="imgPHisAwal2" style="width: 400px;">
+            </td>
+            <td>
+              <img id="imgPCitraPerbaikan2" style="width: 400px;">
+            </td>
+            <td>
+              <img id="imgPHisPerbaikan2" style="width: 400px;">
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <div style="margin-top: 20px;">
+          <h5>Hasil analisa perbandingan</h5>
+          <p>Waktu proses perbaikan citra dengan metode 1 (Histogram) adalah <strong><span id="txtWaktuProses1"></span></strong> Detik</p>
+          <p>Waktu proses perbaikan citra dengan metode 2 (Gaussian Filter) adalah <strong><span id="txtWaktuProses2"></span></strong> Detik</p>
+        </div>
+        
+        <a href="javascript:void(0)" class="btn btn-primary btn-lg">Simpan Data Pengujian</a>
+      </div>
+
+    </div>
+  </div>
+ 
+</div>
+
+
+<script src="{% static "/dasbor/pengujian.js" %}"></script>
